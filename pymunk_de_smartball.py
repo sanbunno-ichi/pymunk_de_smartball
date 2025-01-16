@@ -483,7 +483,7 @@ class App:
 				if self.getInputY():
 					if( GWK[ball_count] == 1 ):
 						GWK[ball_type] += 1
-						if( GWK[ball_type] > 2 ):
+						if( GWK[ball_type] > 1 ):
 							GWK[ball_type] = 0
 							
 				#ボール番号は有効？
@@ -812,60 +812,35 @@ class App:
 		#ホールインしたボール
 		for _cnt in range(BALL_MAX):
 			if( GWK[ball_switch + _cnt] & BALLSW_HOLEIN ):
+				x = GWK[hollin_pos + ( _cnt * 3 + 0 )] - 5
+				y = GWK[hollin_pos + ( _cnt * 3 + 1 )] - 5
+				angle = GWK[hollin_pos + ( _cnt * 3 + 2 )] * 180 / 3.14		#radian => degree
+				angle = angle % 360
 				if( GWK[ball_type] == 0 ):
-					#円＋線でボールを表現
-					x = GWK[hollin_pos + ( _cnt * 3 + 0 )]
-					y = GWK[hollin_pos + ( _cnt * 3 + 1 )]
-					angle = GWK[hollin_pos + ( _cnt * 3 + 2 )]
-					rx, ry = x + BALLIN_RADIUS * np.cos(angle), y + BALLIN_RADIUS * np.sin(angle) 
-					pyxel.circ(x, y, BALLIN_RADIUS, 14)  # ボールを描画
-					pyxel.line(x, y, rx, ry, 8)  # ボールに線を描画
-
+					_id = int( ( angle * 16 ) / 360 ) + 0x11		#赤
 				else:
-					x = GWK[hollin_pos + ( _cnt * 3 + 0 )] - 5
-					y = GWK[hollin_pos + ( _cnt * 3 + 1 )] - 5
-					angle = GWK[hollin_pos + ( _cnt * 3 + 2 )] * 180 / 3.14		#radian => degree
-					angle = angle % 360
-					if( GWK[ball_type] == 1 ):
-						_id = int( ( angle * 16 ) / 360 ) + 0x11		#赤
-					else:
-						_id = int( ( angle * 16 ) / 360 ) + 0x01		#青
-					pyxel.blt( x, y, 0, self.ctbl[_id][0], self.ctbl[_id][1], self.ctbl[_id][2], self.ctbl[_id][3], 0 )
+					_id = int( ( angle * 16 ) / 360 ) + 0x01		#青
+				pyxel.blt( x, y, 0, self.ctbl[_id][0], self.ctbl[_id][1], self.ctbl[_id][2], self.ctbl[_id][3], 0 )
 
 
 		#摩擦係数をセットすることでボールの回転が表現できる
 		#ボール
 		if( GWK[shooter_ball] != (-1) ):
 			setnum = GWK[shooter_ball]
+			x, y, *_ = self.ball_shape[setnum].bb
+			angle = self.ball_shape[setnum].body.angle * 180 / 3.14		#radian => degree
+			angle = angle % 360
+			
+			#ボールの見た目だけ移動
+			if( GWK[ball_switch+setnum] & BALLSW_READY ):
+				if( GWK[shooter_power] > 0 ):
+					y = (180 + GWK[shooter_power] * PULL_PARAM / ADD_POWER_MAX)-11
+			
 			if( GWK[ball_type] == 0 ):
-				#円＋線でボールを表現
-				x, y = self.ball_body[setnum].position  # ボールの位置を取得
-				angle = self.ball_shape[setnum].body.angle  # ボールの角度を取得
-
-				#ボールの見た目だけ移動
-				if( GWK[ball_switch+setnum] & BALLSW_READY ):
-					if( GWK[shooter_power] > 0 ):
-						y = (180 + GWK[shooter_power] * PULL_PARAM / ADD_POWER_MAX) - 6
-
-				rx, ry = x + BALL_RADIUS * np.cos(angle), y + BALL_RADIUS * np.sin(angle) 
-				pyxel.circ(x, y, BALL_RADIUS, 14)  # ボールを描画
-				pyxel.line(x, y, rx, ry, 8)  # ボールに線を描画
-
+				_id = int( ( angle * 16 ) / 360 ) + 0x11		#赤
 			else:
-				x, y, *_ = self.ball_shape[setnum].bb
-				angle = self.ball_shape[setnum].body.angle * 180 / 3.14		#radian => degree
-				angle = angle % 360
-				
-				#ボールの見た目だけ移動
-				if( GWK[ball_switch+setnum] & BALLSW_READY ):
-					if( GWK[shooter_power] > 0 ):
-						y = (180 + GWK[shooter_power] * PULL_PARAM / ADD_POWER_MAX)-11
-				
-				if( GWK[ball_type] == 1 ):
-					_id = int( ( angle * 16 ) / 360 ) + 0x11		#赤
-				else:
-					_id = int( ( angle * 16 ) / 360 ) + 0x01		#青
-				pyxel.blt( x, y, 0, self.ctbl[_id][0], self.ctbl[_id][1], self.ctbl[_id][2], self.ctbl[_id][3], 0 )
+				_id = int( ( angle * 16 ) / 360 ) + 0x01		#青
+			pyxel.blt( x, y, 0, self.ctbl[_id][0], self.ctbl[_id][1], self.ctbl[_id][2], self.ctbl[_id][3], 0 )
 
 
 	#-----------------------------------------------------------------
