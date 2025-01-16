@@ -671,8 +671,6 @@ class App:
 	#描画
 	#-----------------------------------------------------------------
 	def draw(self):
-		import numpy as np
-
 		pyxel.cls(0)
 		
 		pyxel.text( (SCREEN_WIDTH//2 - (4*19//2)) , 10, 'S M A R T  B A L L', 7 )
