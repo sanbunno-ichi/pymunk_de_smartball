@@ -12,6 +12,7 @@ Bボタン、または、XキーでPyxel Quit
 
 ## スクリーンショット
 ![SS](sm_start.png)
+![SS](sm_perfect.png)
 
 ## GIFアニメ
 ![GIF](sm_0116.gif)
