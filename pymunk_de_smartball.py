@@ -479,7 +479,7 @@ class App:
 				if self.getInputB():
 					pyxel.quit()
 
-				#裏技（一発目打つ前に押下するとボール種別が変わります（３種類））
+				#裏技（一発目打つ前に押下するとボール種別が変わります（２種類））
 				if self.getInputY():
 					if( GWK[ball_count] == 1 ):
 						GWK[ball_type] += 1
