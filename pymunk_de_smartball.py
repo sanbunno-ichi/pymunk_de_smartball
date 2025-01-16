@@ -441,7 +441,7 @@ class App:
 			self.ball_body[_num] = self.pymunk.Body(mass, moment)
 			self.ball_body[_num].position = ( 167, 180-6 )
 
-			self.ball_shape[_num] = pymunk.Circle(self.ball_body[_num], r, (0, 0))
+			self.ball_shape[_num] = self.pymunk.Circle(self.ball_body[_num], r, (0, 0))
 			#反射係数（弾性）を設定
 			self.ball_shape[_num].elasticity = 0.4
 			#摩擦係数を設定
