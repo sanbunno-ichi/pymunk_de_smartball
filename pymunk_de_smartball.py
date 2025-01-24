@@ -4,11 +4,10 @@
 # desc: Smartball simulator
 # site: https://github.com/sanbunno-ichi/pymunk_de_smartball
 # license: MIT
-# version: 1.1
+# version: 1.0
 #
 #更新履歴
-#2025.01.18 台の種類追加(v1.1)
-#2025.01.16 公開(v1.0)
+#2025.01.16 公開
 #2025.01.10 作成開始
 #-----------------------------------------------------------------
 #PERFECTを目指してください
@@ -21,7 +20,6 @@ SCREEN_HEIGHT = 256
 BALL_RADIUS = 5
 BALLIN_RADIUS = 4
 BALL_MAX = 20
-BALL_NUMMAX = 999999
 
 #打ち出す力算出
 #power : 200 = x : 63
@@ -29,8 +27,6 @@ BALL_NUMMAX = 999999
 PULL_PARAM = 40		#63(FULL)
 ADD_POWER_MAX = 200		#シューター引っ張る力最大値
 ADD_POWER_MIN = 36		#シューター引っ張る力最低値
-
-TT_POSBASEX = 0x100
 
 #-----------------------------------------------------------------
 #[workass]変数
@@ -55,10 +51,7 @@ GS_MAIN				=	1	#G_GAME
 GS_PERFECT			=	2
 
 board_number		=	WORK_TOP+0x02
-select_number		=	WORK_TOP+0x03
-wait_counter		=	WORK_TOP+0x04
-
-min_ball_number		=	WORK_TOP+0x08		#board数分（最大８としておく）
+wait_counter		=	WORK_TOP+0x03
 
 hole_switch			=	WORK_TOP+0x10
 
@@ -107,8 +100,8 @@ BALLSW_STANDBY	=	0x80		#スタンバイ状態
 
 hollin_pos			=	WORK_TOP+0x200		#ホールインしたボールの座標保存
 
-#[S]穴座標
-hole_pos_tbl1 = [
+#[S1]穴座標
+hole_pos_tbl = [
 	 56,  80,
 	108,  80,
 	 35, 105,
@@ -126,45 +119,8 @@ hole_pos_tbl1 = [
 	129, 203,
 	]
 
-hole_pos_tbl2 = [
-	 35,  80,
-	 67,  80,
-	 98,  80,
-	130,  80,
-	 35, 120,
-	 67, 120,
-	 98, 120,
-	130, 120,
-	 35, 160,
-	 67, 160,
-	 98, 160,
-	130, 160,
-	 35, 200,
-	 67, 200,
-	 98, 200,
-	130, 200,
-	]
-hole_pos_tbl3 = [
-	 51,  60,
-	 83,  60,
-	114,  60,
-	 35, 100,
-	 67, 100,
-	 98, 100,
-	130, 100,
-	 35, 140,
-	 67, 140,
-	 98, 140,
-	130, 140,
-	 51, 180,
-	 83, 180,
-	114, 180,
-	 51, 220,
-	114, 220,
-	]
-
-#[S]ホール組み合わせセット
-hole_pic_tbl1 = [
+#[S1]ホール組み合わせセット
+hole_pic_tbl = [
 	0,1,6,5,		#0	box
 	5,6,11,10,		#1	box
 	2,3,8,7,		#2	box
@@ -176,28 +132,8 @@ hole_pic_tbl1 = [
 	12,13,14,-1,	#8	yoko line
 	]
 
-hole_pic_tbl2 = [
-	0,1,2,3,		#0	yoko
-	4,5,6,7,		#1	yoko
-	8,9,10,11,		#2	yoko
-	12,13,14,15,	#3	yoko
-	0,4,8,12,		#4	tate
-	1,5,9,13,		#5	tate
-	2,6,10,14,		#6	tate
-	3,7,11,15,		#7	tate
-	0,5,10,15,		#8	naname
-	3,6,9,12,		#9	naname
-	]
-hole_pic_tbl3 = [
-	0,1,2,-1,
-	3,4,5,6,
-	7,8,9,10,
-	11,12,13,-1,
-	14,15,-1,-1,
-	]
-
-#[S]軸座標
-shaft_pos_tbl1 = [
+#[S1]軸座標
+shaft_pos_tbl = [
 	 42, 70,
 	 56, 70,
 	 70, 70,
@@ -237,75 +173,6 @@ shaft_pos_tbl1 = [
 	152,200,
 	]
 
-shaft_pos_tbl2 = [
-	 51,  55,
-	 83,  55,
-	114,  55,
-	 37,  68,
-	 61,  68,
-	 83,  68,
-	104,  68,
-	128,  68,
-	 26, 102,
-	 44, 102,
-	 58, 102,
-	 76, 102,
-	 89, 102,
-	107, 102,
-	121, 102,
-	 10, 107,
-	 13, 110,
-	144, 110,
-	147, 107,
-	150, 104,
-	153, 101,
-	 51, 140,
-	 83, 140,
-	114, 140,
-	 35, 150,
-	 67, 150,
-	 98, 150,
-	130, 150,
-	 51, 160,
-	 83, 160,
-	114, 160,
-	 10, 187,
-	 13, 190,
-	 25, 190,
-	 44, 190,
-	 58, 190,
-	 76, 190,
-	 89, 190,
-	107, 190,
-	121, 190,
-	144, 190,
-	147, 187,
-	150, 184,
-	153, 181,
-	]
-shaft_pos_tbl3 = [
-	 50,  45,
-	 83,  45,
-	114,  45,
-	 35,  70,
-	 67,  70,
-	 98,  70,
-	130,  70,
-	 50,  95,
-	 83,  95,
-	114,  95,
-	 50, 135,
-	 83, 135,
-	114, 135,
-	 66, 160,
-	 98, 160,
-	 35, 200,
-	 67, 200,
-	 98, 200,
-	130, 200,
-	 83, 220,
-	]
-
 #DEFAULT COLOR
 defcol_tbl = [
 	0x000000,
@@ -336,26 +203,11 @@ class App:
 		pyxel.init( SCREEN_WIDTH, SCREEN_HEIGHT, fps=fps, title="pymunk_de_smartball" )
 		pyxel.load("pinball.pyxres")
 		self.work_clear()
-		self.create_world()
-		self.title_set()
-
-		#初期値セット
-		for _cnt in range(8):
-			GWK[min_ball_number + _cnt] = BALL_NUMMAX
-
-		pyxel.run(self.update, self.draw)
-
-	#★[TODO]共通オブジェクトはpositionのみ変更で使いまわし→最初に作成
-	#★[TODO]ホールや軸はremoveして再度addして使いたい→分けて作成・削除実施
-	#★[TODO]リストは代入でコピーできる
-
-	#-----------------------------------------------------------------
-	#タイトルセット
-	#-----------------------------------------------------------------
-	def title_set(self):
-		GWK[board_number] = -1
-		GWK[game_adv] = G_TITLE
+		GWK[game_adv] = G_GAME
 		GWK[game_subadv] = GS_INIT
+		self.create_world()
+		pyxel.camera(0, 0)
+		pyxel.run(self.update, self.draw)
 
 	#-----------------------------------------------------------------
 	#効果音セット
@@ -376,22 +228,10 @@ class App:
 
 
 	#-----------------------------------------------------------------
-	#[S}ホールイン制御
-	#hole_pos_tbl, hole_pic_tbl
+	#ホールイン制御
 	#-----------------------------------------------------------------
 	def holein_control(self):
-
-		if( GWK[board_number] == 0 ):
-			_hole_pos_tbl = hole_pos_tbl1
-			_hole_pic_tbl = hole_pic_tbl1
-		elif( GWK[board_number] == 1 ):
-			_hole_pos_tbl = hole_pos_tbl2
-			_hole_pic_tbl = hole_pic_tbl2
-		elif( GWK[board_number] == 2 ):
-			_hole_pos_tbl = hole_pos_tbl3
-			_hole_pic_tbl = hole_pic_tbl3
-
-		hole_size = len(_hole_pos_tbl)//2
+		hole_size = len(hole_pos_tbl)//2
 		for _hcnt in range(hole_size):
 			_bit = 1 << _hcnt
 			#ホールにボールは入っていない
@@ -431,14 +271,14 @@ class App:
 							break
 
 		#ホールインしたボールがhole_pic_tblで揃ってるかどうかをチェックする
-		hole_pic_size = len(_hole_pic_tbl)//4
+		hole_pic_size = len(hole_pic_tbl)//4
 		for _cnt in range(hole_pic_size):
 			#未チェック
 			if( GWK[hole_pic_switch + _cnt] == 0 ):
 				#組み合わせのホールが埋まっているかのチェック
 				_check_switch = 0
 				for _num in range(4):
-					_bitcnt = _hole_pic_tbl[_cnt * 4 + _num]
+					_bitcnt = hole_pic_tbl[_cnt * 4 + _num]
 					if( _bitcnt != (-1) ):
 						_bit = 1 << _bitcnt
 						_check_switch |= _bit
@@ -480,7 +320,9 @@ class App:
 			GWK[shooter_gate_switch] = 0
 
 	#-----------------------------------------------------------------
-	#create_world＆共通部分作成
+	#create_world
+	#	ホールは１５個、軸３５本
+	#	シューター、シューターゲート、ストッパーバンパー
 	#-----------------------------------------------------------------
 	def create_world(self):
 		from pymunk import Vec2d
@@ -543,6 +385,16 @@ class App:
 		self.ball_body = [0 for tbl in range(BALL_MAX)]
 		self.ball_shape = [0 for tbl in range(BALL_MAX)]
 
+		#ホール設定
+		hole_size = len(hole_pos_tbl)//2
+		self.hole_body = [0 for tbl in range(hole_size)]
+		self.hole_shape = [0 for tbl in range(hole_size)]
+		for _cnt in range(hole_size):
+			self.hole_body[_cnt] = self.pymunk.Body( body_type=self.pymunk.Body.STATIC )
+			self.hole_body[_cnt].position = hole_pos_tbl[_cnt*2+0], hole_pos_tbl[_cnt*2+1]
+			self.hole_shape[_cnt] = self.pymunk.Circle(self.hole_body[_cnt], 2)		#ホールの大きさを小さく（元は6）
+			self.space.add(self.hole_body[_cnt], self.hole_shape[_cnt])
+
 		#シューターゲート
 		self.shooter_gate_body = self.pymunk.Body(body_type=self.pymunk.Body.STATIC)
 		self.shooter_gate_body.position = 159, 87
@@ -560,52 +412,17 @@ class App:
 		self.bumper_shape.friction = 0.3
 		self.space.add(self.bumper_body, self.bumper_shape)
 
-	#-----------------------------------------------------------------
-	#ホール＆軸作成
-	#-----------------------------------------------------------------
-	def create_parts(self, _hole_pos_tbl, _shaft_pos_tbl):
-
-		#ホール設定
-		hole_size = len(_hole_pos_tbl)//2
-		self.hole_body = [0 for tbl in range(hole_size)]
-		self.hole_shape = [0 for tbl in range(hole_size)]
-		for _cnt in range(hole_size):
-			self.hole_body[_cnt] = self.pymunk.Body( body_type=self.pymunk.Body.STATIC )
-			self.hole_body[_cnt].position = _hole_pos_tbl[_cnt*2+0], _hole_pos_tbl[_cnt*2+1]
-			self.hole_shape[_cnt] = self.pymunk.Circle(self.hole_body[_cnt], 2)		#ホールの大きさを小さく（元は6）
-			self.space.add(self.hole_body[_cnt], self.hole_shape[_cnt])
-
 		#軸
-		shaft_size = len(_shaft_pos_tbl)//2
+		shaft_size = len(shaft_pos_tbl)//2
 		self.shaft_body = [0 for tbl in range(shaft_size)]
-		self.shaft_shape = [0 for tbl in range(shaft_size)]
 		for _cnt in range(shaft_size):
 			self.shaft_body[_cnt] = self.pymunk.Body(body_type=self.pymunk.Body.STATIC)
-			self.shaft_body[_cnt].position = _shaft_pos_tbl[_cnt*2+0], _shaft_pos_tbl[_cnt*2+1]-2		#[-2]暫定
-			self.shaft_shape[_cnt] = self.pymunk.Circle(self.shaft_body[_cnt], 1)
-			self.shaft_shape[_cnt].elasticity = 0.7
-			self.shaft_shape[_cnt].friction = 0.3
-			self.space.add(self.shaft_body[_cnt], self.shaft_shape[_cnt])
+			self.shaft_body[_cnt].position = shaft_pos_tbl[_cnt*2+0], shaft_pos_tbl[_cnt*2+1]-2		#[-2]暫定
+			self.circle = self.pymunk.Circle(self.shaft_body[_cnt], 1)
+			self.circle.elasticity = 0.7
+			self.circle.friction = 0.3
+			self.space.add(self.shaft_body[_cnt], self.circle)
 
-	#-----------------------------------------------------------------
-	#ホール＆軸削除
-	#-----------------------------------------------------------------
-	def remove_parts(self, _hole_pos_tbl, _shaft_pos_tbl):
-		#ホール削除
-		hole_size = len(_hole_pos_tbl)//2
-		for _cnt in range(hole_size):
-			for b in self.space.bodies:
-				if( b == self.hole_body[_cnt] ):
-					self.space.remove(self.hole_body[_cnt], self.hole_shape[_cnt])
-					break
-
-		#軸削除
-		shaft_size = len(_shaft_pos_tbl)//2
-		for _cnt in range(shaft_size):
-			for b in self.space.bodies:
-				if( b == self.shaft_body[_cnt] ):
-					self.space.remove(self.shaft_body[_cnt], self.shaft_shape[_cnt])
-					break
 
 	#-----------------------------------------------------------------
 	#ボール生成
@@ -636,52 +453,9 @@ class App:
 	#-----------------------------------------------------------------
 	def update(self):
 		from pymunk import Vec2d
-		if( GWK[game_adv] == G_TITLE ):
+		if( GWK[game_adv] == G_GAME ):
 			if( GWK[game_subadv] == GS_INIT ):
-				#カメラ位置セット
-				pyxel.camera(TT_POSBASEX, 0)
-				GWK[select_number] = 0
 
-				GWK[game_subadv] = GS_MAIN
-			elif( GWK[game_subadv] == GS_MAIN ):
-
-				if( self.getInputRIGHT() ):
-					GWK[select_number] += 1
-					if( GWK[select_number] > 2 ):
-						GWK[select_number] = 0
-				elif( self.getInputLEFT() ):
-					GWK[select_number] -= 1
-					if( GWK[select_number] < 0 ):
-						GWK[select_number] = 2
-
-				elif( self.getInputA() ):
-
-					GWK[board_number] = GWK[select_number]
-
-					GWK[game_adv] = G_GAME
-					GWK[game_subadv] = GS_INIT
-
-				#操作
-				elif self.getInputB():
-					pyxel.quit()
-
-		elif( GWK[game_adv] == G_GAME ):
-			if( GWK[game_subadv] == GS_INIT ):
-				#カメラ位置セット			
-				pyxel.camera(0, 0)
-
-				#ホール＆軸作成
-				if( GWK[board_number] == 0 ):
-					_hole_pos_tbl = hole_pos_tbl1
-					_shaft_pos_tbl = shaft_pos_tbl1
-				elif( GWK[board_number] == 1 ):
-					_hole_pos_tbl = hole_pos_tbl2
-					_shaft_pos_tbl = shaft_pos_tbl2
-				elif( GWK[board_number] == 2 ):
-					_hole_pos_tbl = hole_pos_tbl3
-					_shaft_pos_tbl = shaft_pos_tbl3
-				self.create_parts(_hole_pos_tbl, _shaft_pos_tbl)
-				
 				#ゲーム内パラメータクリア
 				self.work_clear2()
 
@@ -701,11 +475,15 @@ class App:
 				for _ in range(step):
 					self.space.step(step_dt)
 
-				#裏技（一発目打つ前に押下するとボール種別が変わります（３種類））
+				#操作
+				if self.getInputB():
+					pyxel.quit()
+
+				#裏技（一発目打つ前に押下するとボール種別が変わります（２種類））
 				if self.getInputY():
 					if( GWK[ball_count] == 1 ):
 						GWK[ball_type] += 1
-						if( GWK[ball_type] > 2 ):
+						if( GWK[ball_type] > 1 ):
 							GWK[ball_type] = 0
 							
 				#ボール番号は有効？
@@ -782,8 +560,7 @@ class App:
 					shooter_y = (180 + GWK[shooter_power] * PULL_PARAM / ADD_POWER_MAX)
 					self.shooter_body.position = 167, shooter_y
 
-				#[S]ボールが画面外になったかどうかの判定
-				#画面外判定座標
+				#ボールが画面外になったかどうかの判定
 				for _cnt in range(BALL_MAX):
 					#SHOT済み、かつ、ホールインしてない、かつ、remove以外時にチェックする
 					if( ( GWK[ball_switch + _cnt] & (BALLSW_READY+BALLSW_SHOT+BALLSW_HOLEIN+BALLSW_DEAD) ) == 0 ):
@@ -804,24 +581,10 @@ class App:
 			#パーフェクト後
 			elif( GWK[game_subadv] == GS_PERFECT ):
 				#リトライ開始
-				if self.getInputA() or self.getInputB():
-				
-					if( GWK[min_ball_number + GWK[board_number]] > GWK[ball_count] ):
-						GWK[min_ball_number + GWK[board_number]] = GWK[ball_count]
+				if self.getInputA():
 
-					if( GWK[board_number] == 0 ):
-						_hole_pos_tbl = hole_pos_tbl1
-						_shaft_pos_tbl = shaft_pos_tbl1
-					elif( GWK[board_number] == 1 ):
-						_hole_pos_tbl = hole_pos_tbl2
-						_shaft_pos_tbl = shaft_pos_tbl2
-					elif( GWK[board_number] == 2 ):
-						_hole_pos_tbl = hole_pos_tbl3
-						_shaft_pos_tbl = shaft_pos_tbl3
-
-					#[S]ホールインボール後始末
-					#hole_pos_tbl
-					hole_size = len(_hole_pos_tbl)//2
+					#ホールインボール後始末
+					hole_size = len(hole_pos_tbl)//2
 					for _hcnt in range(hole_size):
 						_bit = 1 << _hcnt
 						if( GWK[hole_switch] & _bit ):
@@ -851,17 +614,10 @@ class App:
 						GWK[shooter_gate_switch] |= B_GATE_OPEN		#シューターゲートを開く
 					#ゲート制御
 					self.gate_control()
-
-					#ホール＆軸削除
-					self.remove_parts(_hole_pos_tbl, _shaft_pos_tbl)
-
-					if self.getInputA():
-						#リトライ実行
-						GWK[game_subadv] = GS_INIT
-
-					elif self.getInputB():
-						self.title_set()
 					
+					#リトライ実行
+					GWK[game_subadv] = GS_INIT
+
 	#-----------------------------------------------------------------
 	#res table
 	#-----------------------------------------------------------------
@@ -912,339 +668,182 @@ class App:
 			pyxel.blt( _xp, _yp, 0, self.ctbl[_id][0], self.ctbl[_id][1], self.ctbl[_id][2], self.ctbl[_id][3], 0 )
 
 	#-----------------------------------------------------------------
-	#[S]描画
-	#表示座標
+	#描画
 	#-----------------------------------------------------------------
 	def draw(self):
-
 		pyxel.cls(0)
 		
-		pyxel.text( (SCREEN_WIDTH//2 - (4*22//2)) , 10, 'S M A R T  B A L L '+str(GWK[board_number]+1), 7 )
+		pyxel.text( (SCREEN_WIDTH//2 - (4*19//2)) , 10, 'S M A R T  B A L L', 7 )
 		pyxel.text( 120, 240, 'BALL:', 7 )
 		pyxel.text( 140, 240, str(GWK[ball_count]-1), 7 )
 
-
-		if( ( GWK[game_adv] == G_TITLE ) and ( GWK[game_subadv] != GS_INIT ) ):
-
-			pyxel.text( (SCREEN_WIDTH//2 - (4*11//2)) + TT_POSBASEX, 40,     'P Y M U N K', 7 )
-			pyxel.text( (SCREEN_WIDTH//2 - (4*2//2))  + TT_POSBASEX, 40+8,   'DE', 7 )
-			pyxel.text( (SCREEN_WIDTH//2 - (4*19//2)) + TT_POSBASEX, 40+16,  'S M A R T  B A L L', 7 )
-			pyxel.text( (SCREEN_WIDTH//2 - (4*33//2)) + TT_POSBASEX, 180,    'GAME INSTARUCTION:               ', 7 )
-			pyxel.text( (SCREEN_WIDTH//2 - (4*33//2)) + TT_POSBASEX, 180+8,  ' Z-KEY OR A-BUTTON PUSH          ', 7 )
-			pyxel.text( (SCREEN_WIDTH//2 - (4*33//2)) + TT_POSBASEX, 180+16, ' SELECT THE FOECE YOU WANT TO HIT', 7 )
-			pyxel.text( (SCREEN_WIDTH//2 - (4*33//2)) + TT_POSBASEX, 180+24, ' AND RELEASE THE BUTTON TO SHOOT.', 7 )
-			pyxel.text( (SCREEN_WIDTH//2 - (4*12//2)) + TT_POSBASEX, 220,     'V.2025.01.18', 7 )
-
-			if( GWK[select_number] == 0 ):
-				pyxel.text( (SCREEN_WIDTH//2 - (4*12//2)) + TT_POSBASEX, 100,    'SMART BALL 1', 7 )
-				if( GWK[min_ball_number+GWK[select_number]] != BALL_NUMMAX ):
-					pyxel.text( (SCREEN_WIDTH//2 - (4*20//2)) + TT_POSBASEX, 100+8,  'MIN BALL NUMBER:'+str(GWK[min_ball_number+GWK[select_number]]), 7 )
-			elif( GWK[select_number] == 1 ):
-				pyxel.text( (SCREEN_WIDTH//2 - (4*12//2)) + TT_POSBASEX, 100,    'SMART BALL 2', 7 )
-				if( GWK[min_ball_number+GWK[select_number]] != BALL_NUMMAX ):
-					pyxel.text( (SCREEN_WIDTH//2 - (4*20//2)) + TT_POSBASEX, 100+8,  'MIN BALL NUMBER:'+str(GWK[min_ball_number+GWK[select_number]]), 7 )
-			elif( GWK[select_number] == 2 ):
-				pyxel.text( (SCREEN_WIDTH//2 - (4*12//2)) + TT_POSBASEX, 100,    'SMART BALL 3', 7 )
-				if( GWK[min_ball_number+GWK[select_number]] != BALL_NUMMAX ):
-					pyxel.text( (SCREEN_WIDTH//2 - (4*20//2)) + TT_POSBASEX, 100+8,  'MIN BALL NUMBER:'+str(GWK[min_ball_number+GWK[select_number]]), 7 )
+		#操作説明
+		if( ( GWK[game_adv] == G_GAME ) and ( GWK[game_subadv] == GS_MAIN ) ):
+			pyxel.text( (SCREEN_WIDTH//2 - (4*28//2)) , 40, 'Z-KEY OR A-BUTTON PUSH START', 10 )
+			pyxel.text( (SCREEN_WIDTH//2 - (4*32//2)) , 40+8, 'SELECT THE FOECE YOU WANT TO HIT', 10 )
+			pyxel.text( (SCREEN_WIDTH//2 - (4*32//2)) , 40+16, 'AND RELEASE THE BUTTON TO SHOOT.', 10 )
+		elif( ( GWK[game_adv] == G_GAME ) and ( GWK[game_subadv] == GS_PERFECT ) ):
+			pyxel.text( (SCREEN_WIDTH//2 - (4*25//2)) , 40+4, '!!!! P E R F E C T !!!!', 10 )
+			pyxel.text( (SCREEN_WIDTH//2 - (4*28//2)) , 40+12, 'Z-KEY OR A-BUTTON IS RETRY', 10 )
 
 
-			pyxel.text( (SCREEN_WIDTH//2 - (4*28//2)) + TT_POSBASEX, 128,    'Z-KEY OR A-BUTTON PUSH START', 7 )
-			pyxel.text( (SCREEN_WIDTH//2 - (4*28//2)) + TT_POSBASEX, 128+16, 'X-KEY OR B-BUTTON IS QUIT   ', 7 )
+		#外壁
+		pyxel.line(  70, 255,   7, 206, 7 )
+		pyxel.line(   7, 206,   7,  93, 7 )
+		pyxel.line(   7,  93,  12,  83, 7 )
+		pyxel.line(  12,  83,  20,  71, 7 )
+		pyxel.line(  20,  71,  22,  67, 7 )
+		pyxel.line(  22,  67,  17,  57, 7 )
+		pyxel.line(  17,  57,  23,  47, 7 )
+		pyxel.line(  23,  47,  32,  38, 7 )
+		pyxel.line(  32,  38,  42,  31, 7 )
+		pyxel.line(  42,  31,  56,  25, 7 )
+		pyxel.line(  56,  25,  72,  21, 7 )
+		pyxel.line(  72,  21,  86,  20, 7 )
+		pyxel.line(  86,  20, 104,  21, 7 )
+		pyxel.line( 104,  21, 120,  24, 7 )
+		pyxel.line( 120,  24, 134,  29, 7 )
+		pyxel.line( 134,  29, 145,  35, 7 )
+		pyxel.line( 145,  35, 153,  43, 7 )
+		pyxel.line( 153,  43, 158,  48, 7 )
+		pyxel.line( 158,  48, 163,  55, 7 )
+		pyxel.line( 163,  55, 168,  63, 7 )
+		pyxel.line( 168,  63, 173,  78, 7 )
+		pyxel.line( 173,  78, 173, 145, 7 )
+		pyxel.line( 173, 145, 173, 249, 7 )
+		pyxel.line( 173, 249, 161, 249, 7 )
+		pyxel.line( 161, 249, 161, 145, 7 )
+		pyxel.line( 161, 145, 161,  90, 7 )
+		pyxel.line( 161,  90, 159,  87, 7 )
+		pyxel.line( 159,  87, 157,  90, 7 )
+		pyxel.line( 157,  90, 157, 206, 7 )
+		pyxel.line( 157, 206,  94, 255, 7 )
 
-		#ゲーム中
-		if( ( GWK[game_adv] == G_GAME ) and ( GWK[game_subadv] != GS_INIT ) ):
+		#ホールデザイン
+		for _set in range(len(hole_pic_tbl)//4):
 
-			if( GWK[game_subadv] == GS_PERFECT ):
-				pyxel.text( (SCREEN_WIDTH//2 - (4*28//2)) , 40-8, ' !!!! P E R F E C T !!!!  ', 10 )
-				pyxel.text( (SCREEN_WIDTH//2 - (4*28//2)) , 40,   'Z-KEY OR A-BUTTON IS RETRY', 10 )
-				pyxel.text( (SCREEN_WIDTH//2 - (4*28//2)) , 40+8, 'X-KEY OR B-BUTTON IS TITLE', 10 )
-
-			#外壁
-			pyxel.line(  70, 255,   7, 206, 7 )
-			pyxel.line(   7, 206,   7,  93, 7 )
-			pyxel.line(   7,  93,  12,  83, 7 )
-			pyxel.line(  12,  83,  20,  71, 7 )
-			pyxel.line(  20,  71,  22,  67, 7 )
-			pyxel.line(  22,  67,  17,  57, 7 )
-			pyxel.line(  17,  57,  23,  47, 7 )
-			pyxel.line(  23,  47,  32,  38, 7 )
-			pyxel.line(  32,  38,  42,  31, 7 )
-			pyxel.line(  42,  31,  56,  25, 7 )
-			pyxel.line(  56,  25,  72,  21, 7 )
-			pyxel.line(  72,  21,  86,  20, 7 )
-			pyxel.line(  86,  20, 104,  21, 7 )
-			pyxel.line( 104,  21, 120,  24, 7 )
-			pyxel.line( 120,  24, 134,  29, 7 )
-			pyxel.line( 134,  29, 145,  35, 7 )
-			pyxel.line( 145,  35, 153,  43, 7 )
-			pyxel.line( 153,  43, 158,  48, 7 )
-			pyxel.line( 158,  48, 163,  55, 7 )
-			pyxel.line( 163,  55, 168,  63, 7 )
-			pyxel.line( 168,  63, 173,  78, 7 )
-			pyxel.line( 173,  78, 173, 145, 7 )
-			pyxel.line( 173, 145, 173, 249, 7 )
-			pyxel.line( 173, 249, 161, 249, 7 )
-			pyxel.line( 161, 249, 161, 145, 7 )
-			pyxel.line( 161, 145, 161,  90, 7 )
-			pyxel.line( 161,  90, 159,  87, 7 )
-			pyxel.line( 159,  87, 157,  90, 7 )
-			pyxel.line( 157,  90, 157, 206, 7 )
-			pyxel.line( 157, 206,  94, 255, 7 )
-
-			if( GWK[board_number] == 0 ):
-				_hole_pic_tbl = hole_pic_tbl1
-				_hole_pos_tbl = hole_pos_tbl1
-				_shaft_pos_tbl = shaft_pos_tbl1
-			elif( GWK[board_number] == 1 ):
-				_hole_pic_tbl = hole_pic_tbl2
-				_hole_pos_tbl = hole_pos_tbl2
-				_shaft_pos_tbl = shaft_pos_tbl2
-			elif( GWK[board_number] == 2 ):
-				_hole_pic_tbl = hole_pic_tbl3
-				_hole_pos_tbl = hole_pos_tbl3
-				_shaft_pos_tbl = shaft_pos_tbl3
-
-			#[S}ホールデザイン
-			#hole_pic_tbl, hole_pos_tbl
-			if( GWK[board_number] == 0 ):
-				for _set in range(len(_hole_pic_tbl)//4):
-
-					#斜めラインだけは始点から終点の線だけにする
-					if( ( _set >= 4 ) and (_set <= 7 ) ):
-						_num1 = _hole_pic_tbl[_set * 4 + 0]
-						_num2 = _hole_pic_tbl[_set * 4 + 3]
-						x1 = _hole_pos_tbl[_num1 * 2 + 0]
-						y1 = _hole_pos_tbl[_num1 * 2 + 1]
-						x2 = _hole_pos_tbl[_num2 * 2 + 0]
-						y2 = _hole_pos_tbl[_num2 * 2 + 1]
-						pyxel.line( x1,y1,x2,y2,1 )
-					else:
-						for _cnt in range(4):
-							_num1 = _hole_pic_tbl[_set * 4 + _cnt]
-							_cnt2 = ( _cnt + 1 ) & 3
-							_num2 = _hole_pic_tbl[_set * 4 + _cnt2]
-							
-							x1 = _hole_pos_tbl[_num1 * 2 + 0]
-							y1 = _hole_pos_tbl[_num1 * 2 + 1]
-							x2 = _hole_pos_tbl[_num2 * 2 + 0]
-							y2 = _hole_pos_tbl[_num2 * 2 + 1]
-							pyxel.line( x1,y1,x2,y2,1 )
-
-				#揃ったら色変えるとかしたい
-				_is_perfect = 1
-				for _set in range(len(_hole_pic_tbl)//4):
-
-					#斜めラインだけは始点から終点の線だけにする
-					if( ( _set >= 4 ) and (_set <= 7 ) ):
-						_num1 = _hole_pic_tbl[_set * 4 + 0]
-						_num2 = _hole_pic_tbl[_set * 4 + 3]
-						x1 = _hole_pos_tbl[_num1 * 2 + 0]
-						y1 = _hole_pos_tbl[_num1 * 2 + 1]
-						x2 = _hole_pos_tbl[_num2 * 2 + 0]
-						y2 = _hole_pos_tbl[_num2 * 2 + 1]
-
-						if( GWK[hole_pic_switch + _set] != 0 ):
-							pyxel.line( x1,y1,x2,y2,10 )
-						else:
-							_is_perfect = 0
-					else:
-						for _cnt in range(4):
-							_num1 = _hole_pic_tbl[_set * 4 + _cnt]
-							_cnt2 = ( _cnt + 1 ) & 3
-							_num2 = _hole_pic_tbl[_set * 4 + _cnt2]
-							
-							x1 = _hole_pos_tbl[_num1 * 2 + 0]
-							y1 = _hole_pos_tbl[_num1 * 2 + 1]
-							x2 = _hole_pos_tbl[_num2 * 2 + 0]
-							y2 = _hole_pos_tbl[_num2 * 2 + 1]
-
-							if( GWK[hole_pic_switch + _set] != 0 ):
-								pyxel.line( x1,y1,x2,y2,10 )
-							else:
-								_is_perfect = 0
-
-			elif( GWK[board_number] == 1 ):
-				for _set in range(len(_hole_pic_tbl)//4):
-					#すべて始点から終点の線だけにする
-					_num1 = _hole_pic_tbl[_set * 4 + 0]
-					_num2 = _hole_pic_tbl[_set * 4 + 3]
-					x1 = _hole_pos_tbl[_num1 * 2 + 0]
-					y1 = _hole_pos_tbl[_num1 * 2 + 1]
-					x2 = _hole_pos_tbl[_num2 * 2 + 0]
-					y2 = _hole_pos_tbl[_num2 * 2 + 1]
+			#斜めラインだけは始点から終点の線だけにする
+			if( ( _set >= 4 ) and (_set <= 7 ) ):
+				_num1 = hole_pic_tbl[_set * 4 + 0]
+				_num2 = hole_pic_tbl[_set * 4 + 3]
+				x1 = hole_pos_tbl[_num1 * 2 + 0]
+				y1 = hole_pos_tbl[_num1 * 2 + 1]
+				x2 = hole_pos_tbl[_num2 * 2 + 0]
+				y2 = hole_pos_tbl[_num2 * 2 + 1]
+				pyxel.line( x1,y1,x2,y2,1 )
+			else:
+				for _cnt in range(4):
+					_num1 = hole_pic_tbl[_set * 4 + _cnt]
+					_cnt2 = ( _cnt + 1 ) & 3
+					_num2 = hole_pic_tbl[_set * 4 + _cnt2]
+					
+					x1 = hole_pos_tbl[_num1 * 2 + 0]
+					y1 = hole_pos_tbl[_num1 * 2 + 1]
+					x2 = hole_pos_tbl[_num2 * 2 + 0]
+					y2 = hole_pos_tbl[_num2 * 2 + 1]
 					pyxel.line( x1,y1,x2,y2,1 )
 
-				#揃ったら色変えるとかしたい
-				_is_perfect = 1
-				for _set in range(len(_hole_pic_tbl)//4):
-					#すべて始点から終点の線だけにする
-					_num1 = _hole_pic_tbl[_set * 4 + 0]
-					_num2 = _hole_pic_tbl[_set * 4 + 3]
-					x1 = _hole_pos_tbl[_num1 * 2 + 0]
-					y1 = _hole_pos_tbl[_num1 * 2 + 1]
-					x2 = _hole_pos_tbl[_num2 * 2 + 0]
-					y2 = _hole_pos_tbl[_num2 * 2 + 1]
+		#揃ったら色変えるとかしたい
+		_is_perfect = 1
+		for _set in range(len(hole_pic_tbl)//4):
+
+			#斜めラインだけは始点から終点の線だけにする
+			if( ( _set >= 4 ) and (_set <= 7 ) ):
+				_num1 = hole_pic_tbl[_set * 4 + 0]
+				_num2 = hole_pic_tbl[_set * 4 + 3]
+				x1 = hole_pos_tbl[_num1 * 2 + 0]
+				y1 = hole_pos_tbl[_num1 * 2 + 1]
+				x2 = hole_pos_tbl[_num2 * 2 + 0]
+				y2 = hole_pos_tbl[_num2 * 2 + 1]
+
+				if( GWK[hole_pic_switch + _set] != 0 ):
+					pyxel.line( x1,y1,x2,y2,10 )
+				else:
+					_is_perfect = 0
+			else:
+				for _cnt in range(4):
+					_num1 = hole_pic_tbl[_set * 4 + _cnt]
+					_cnt2 = ( _cnt + 1 ) & 3
+					_num2 = hole_pic_tbl[_set * 4 + _cnt2]
+					
+					x1 = hole_pos_tbl[_num1 * 2 + 0]
+					y1 = hole_pos_tbl[_num1 * 2 + 1]
+					x2 = hole_pos_tbl[_num2 * 2 + 0]
+					y2 = hole_pos_tbl[_num2 * 2 + 1]
 
 					if( GWK[hole_pic_switch + _set] != 0 ):
 						pyxel.line( x1,y1,x2,y2,10 )
 					else:
 						_is_perfect = 0
 
-			elif( GWK[board_number] == 2 ):
-				for _set in range(len(_hole_pic_tbl)//4):
-					for _cnt in range(4):
-						_num1 = _hole_pic_tbl[_set * 4 + _cnt]
-						_cnt2 = ( _cnt + 1 ) & 3
-						_num2 = _hole_pic_tbl[_set * 4 + _cnt2]
-						if( ( _num1 != -1 ) and ( _num2 != -1 ) ):
-							x1 = _hole_pos_tbl[_num1 * 2 + 0]
-							y1 = _hole_pos_tbl[_num1 * 2 + 1]
-							x2 = _hole_pos_tbl[_num2 * 2 + 0]
-							y2 = _hole_pos_tbl[_num2 * 2 + 1]
-							pyxel.line( x1,y1,x2,y2,1 )
-
-				#揃ったら色変えるとかしたい
-				_is_perfect = 1
-				for _set in range(len(_hole_pic_tbl)//4):
-					for _cnt in range(4):
-						_num1 = _hole_pic_tbl[_set * 4 + _cnt]
-						_cnt2 = ( _cnt + 1 ) & 3
-						_num2 = _hole_pic_tbl[_set * 4 + _cnt2]
-						if( ( _num1 != -1 ) and ( _num2 != -1 ) ):
-							x1 = _hole_pos_tbl[_num1 * 2 + 0]
-							y1 = _hole_pos_tbl[_num1 * 2 + 1]
-							x2 = _hole_pos_tbl[_num2 * 2 + 0]
-							y2 = _hole_pos_tbl[_num2 * 2 + 1]
-
-							if( GWK[hole_pic_switch + _set] != 0 ):
-								pyxel.line( x1,y1,x2,y2,10 )
-							else:
-								_is_perfect = 0
-
-			if( _is_perfect ):
-				if( ( GWK[game_adv] == G_GAME ) and ( GWK[game_subadv] == GS_MAIN ) ):
-					GWK[game_subadv] = GS_PERFECT
+		if( _is_perfect ):
+			if( ( GWK[game_adv] == G_GAME ) and ( GWK[game_subadv] == GS_MAIN ) ):
+				GWK[game_subadv] = GS_PERFECT
 
 
-			#シュートゲートの開閉
-			if( GWK[shooter_gate_switch] & B_GATE_CLOSED ):
-				pyxel.line(  159, 87,  173, 78, 10 )
+		#シュートゲートの開閉
+		if( GWK[shooter_gate_switch] & B_GATE_CLOSED ):
+			pyxel.line(  159, 87,  173, 78, 10 )
 
-			#[S]ホール
-			#hole_pos_tbl
-			hole_size = len(_hole_pos_tbl)//2
-			for _cnt in range(hole_size):
-				x, y = self.hole_body[_cnt].position
-				pyxel.circ( x, y, 7, 7 )
-				pyxel.circ( x, y, 6, 13 )	#白穴
+		#ホール
+		hole_size = len(hole_pos_tbl)//2
+		for _cnt in range(hole_size):
+			x, y = self.hole_body[_cnt].position
+			pyxel.circ( x, y, 7, 7 )
+			pyxel.circ( x, y, 6, 13 )	#白穴
 
-			#[S]軸
-			#shaft_pos_tbl
-			shaft_size = len(_shaft_pos_tbl)//2
-			for _cnt in range(shaft_size):
-				x, y = self.shaft_body[_cnt].position
-				self.cput( x-1, y-3, 0x00 )
+		#軸
+		shaft_size = len(shaft_pos_tbl)//2
+		for _cnt in range(shaft_size):
+			x, y = self.shaft_body[_cnt].position
+			self.cput( x-1, y-3, 0x00 )
 
-			#ストッパーバンパー
-			x, y = self.bumper_body.position
-			pyxel.circ(x-2, y-2, 4, 4)
+		#ストッパーバンパー
+		x, y = self.bumper_body.position
+		pyxel.circ(x-2, y-2, 4, 4)
 
-			#シューター
-			x, y = self.shooter_body.position
-			pyxel.rect( x-5, y, 11, 5, 9 )
-			pyxel.rect( x-1, y+5, 3, 249 - (y+5), 9 )
-			
-			#ホールインしたボール
-			for _cnt in range(BALL_MAX):
-				if( GWK[ball_switch + _cnt] & BALLSW_HOLEIN ):
-					if( GWK[ball_type] == 0 ):
-						#円＋線でボールを表現
-						x = GWK[hollin_pos + ( _cnt * 3 + 0 )]
-						y = GWK[hollin_pos + ( _cnt * 3 + 1 )]
-						angle = GWK[hollin_pos + ( _cnt * 3 + 2 )] * 180 / 3.14		#radian => degree
-						angle = angle % 360
-						rx, ry = x + BALLIN_RADIUS * pyxel.cos(angle), y + BALLIN_RADIUS * pyxel.sin(angle) 
-						pyxel.circ(x, y, BALLIN_RADIUS, 14)  # ボールを描画
-						pyxel.line(x, y, rx, ry, 8)  # ボールに線を描画
-
-					else:
-						x = GWK[hollin_pos + ( _cnt * 3 + 0 )] - 5
-						y = GWK[hollin_pos + ( _cnt * 3 + 1 )] - 5
-						angle = GWK[hollin_pos + ( _cnt * 3 + 2 )] * 180 / 3.14		#radian => degree
-						angle = angle % 360
-						if( GWK[ball_type] == 1 ):
-							_id = int( ( angle * 16 ) / 360 ) + 0x11		#赤
-						else:
-							_id = int( ( angle * 16 ) / 360 ) + 0x01		#青
-						pyxel.blt( x, y, 0, self.ctbl[_id][0], self.ctbl[_id][1], self.ctbl[_id][2], self.ctbl[_id][3], 0 )
-
-
-			#摩擦係数をセットすることでボールの回転が表現できる
-			#ボール
-			if( GWK[shooter_ball] != (-1) ):
-				setnum = GWK[shooter_ball]
+		#シューター
+		x, y = self.shooter_body.position
+		pyxel.rect( x-5, y, 11, 5, 9 )
+		pyxel.rect( x-1, y+5, 3, 249 - (y+5), 9 )
+		
+		#ホールインしたボール
+		for _cnt in range(BALL_MAX):
+			if( GWK[ball_switch + _cnt] & BALLSW_HOLEIN ):
+				x = GWK[hollin_pos + ( _cnt * 3 + 0 )] - 5
+				y = GWK[hollin_pos + ( _cnt * 3 + 1 )] - 5
+				angle = GWK[hollin_pos + ( _cnt * 3 + 2 )] * 180 / 3.14		#radian => degree
+				angle = angle % 360
 				if( GWK[ball_type] == 0 ):
-					#円＋線でボールを表現
-					x, y = self.ball_body[setnum].position  # ボールの位置を取得
-					angle = self.ball_shape[setnum].body.angle * 180 / 3.14		#radian => degree
-					angle = angle % 360
-
-
-					#ボールの見た目だけ移動
-					if( GWK[ball_switch+setnum] & BALLSW_READY ):
-						if( GWK[shooter_power] > 0 ):
-							y = (180 + GWK[shooter_power] * PULL_PARAM / ADD_POWER_MAX) - 6
-
-					rx, ry = x + BALL_RADIUS * pyxel.cos(angle), y + BALL_RADIUS * pyxel.sin(angle) 
-					pyxel.circ(x, y, BALL_RADIUS, 14)  # ボールを描画
-					pyxel.line(x, y, rx, ry, 8)  # ボールに線を描画
-
+					_id = int( ( angle * 16 ) / 360 ) + 0x11		#赤
 				else:
-					x, y, *_ = self.ball_shape[setnum].bb
-					angle = self.ball_shape[setnum].body.angle * 180 / 3.14		#radian => degree
-					angle = angle % 360
-					
-					#ボールの見た目だけ移動
-					if( GWK[ball_switch+setnum] & BALLSW_READY ):
-						if( GWK[shooter_power] > 0 ):
-							y = (180 + GWK[shooter_power] * PULL_PARAM / ADD_POWER_MAX)-11
-					
-					if( GWK[ball_type] == 1 ):
-						_id = int( ( angle * 16 ) / 360 ) + 0x11		#赤
-					else:
-						_id = int( ( angle * 16 ) / 360 ) + 0x01		#青
-					pyxel.blt( x, y, 0, self.ctbl[_id][0], self.ctbl[_id][1], self.ctbl[_id][2], self.ctbl[_id][3], 0 )
+					_id = int( ( angle * 16 ) / 360 ) + 0x01		#青
+				pyxel.blt( x, y, 0, self.ctbl[_id][0], self.ctbl[_id][1], self.ctbl[_id][2], self.ctbl[_id][3], 0 )
+
+
+		#摩擦係数をセットすることでボールの回転が表現できる
+		#ボール
+		if( GWK[shooter_ball] != (-1) ):
+			setnum = GWK[shooter_ball]
+			x, y, *_ = self.ball_shape[setnum].bb
+			angle = self.ball_shape[setnum].body.angle * 180 / 3.14		#radian => degree
+			angle = angle % 360
+			
+			#ボールの見た目だけ移動
+			if( GWK[ball_switch+setnum] & BALLSW_READY ):
+				if( GWK[shooter_power] > 0 ):
+					y = (180 + GWK[shooter_power] * PULL_PARAM / ADD_POWER_MAX)-11
+			
+			if( GWK[ball_type] == 0 ):
+				_id = int( ( angle * 16 ) / 360 ) + 0x11		#赤
+			else:
+				_id = int( ( angle * 16 ) / 360 ) + 0x01		#青
+			pyxel.blt( x, y, 0, self.ctbl[_id][0], self.ctbl[_id][1], self.ctbl[_id][2], self.ctbl[_id][3], 0 )
 
 
 	#-----------------------------------------------------------------
 	#入力（キーボード＆ジョイパッド）
 	#-----------------------------------------------------------------
-	#上
-	def getInputUP(self):
-		if pyxel.btnp(pyxel.KEY_UP, hold=10, repeat=10) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_DPAD_UP, hold=10, repeat=10):
-			return 1
-		else:
-			return 0
-	#下
-	def getInputDOWN(self):
-		if pyxel.btnp(pyxel.KEY_DOWN, hold=10, repeat=10) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_DPAD_DOWN, hold=10, repeat=10):
-			return 1
-		else:
-			return 0
-	#左
-	def getInputLEFT(self):
-		if pyxel.btnp(pyxel.KEY_LEFT, hold=10, repeat=10) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_DPAD_LEFT, hold=10, repeat=10):
-			return 1
-		else:
-			return 0
-	#右
-	def getInputRIGHT(self):
-		if pyxel.btnp(pyxel.KEY_RIGHT, hold=10, repeat=10) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_DPAD_RIGHT, hold=10, repeat=10):
-			return 1
-		else:
-			return 0
-
 	#button-A（決定）
 	def getInputA(self):
 		if pyxel.btnp(pyxel.KEY_Z, hold=10, repeat=10) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_A, hold=10, repeat=10):
