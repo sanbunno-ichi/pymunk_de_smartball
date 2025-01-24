@@ -6,17 +6,13 @@
 - 効果音は、frenchbreadさん作成の「Pyxel RPG SE パック」を使用しています。
 - 裏技：一発目のボールを打つ時にYキーまたはYボタンでボールの色を変えられます。
 - Web化するとバーチャルゲームパッドに対応できない・・・
-- 台の種類を追加して３種類とした（ver1.1）
 
 ## 操作方法
 Aボタン、または、Zキーでショット  
 Bボタン、または、XキーでPyxel Quit  
 
 ## スクリーンショット
-![SS](sm_title.png)  
 ![SS](sm_game1.png)  
-![SS](sm_game2.png)  
-![SS](sm_game3.png)  
 
 ## GIFアニメ
 ![GIF](sm_0116.gif)
