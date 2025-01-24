@@ -12,7 +12,10 @@ Aボタン、または、Zキーでショット
 Bボタン、または、XキーでPyxel Quit  
 
 ## スクリーンショット
+![SS](sm_title.png)  
 ![SS](sm_game1.png)  
+![SS](sm_game2.png)  
+![SS](sm_game3.png)  
 
 ## GIFアニメ
 ![GIF](sm_0116.gif)
