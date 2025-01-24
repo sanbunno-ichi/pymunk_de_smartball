@@ -14,6 +14,7 @@ pymunkがロードできないエラーが出ています。
 > pyodide.asm.js:10 Installing Pymunk...
 pyodide.asm.js:10 Error: Cannot download from a non-remote location: 'file:///pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl' (ParseResult(scheme='', netloc='', path='pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl', params='', query='', fragment=''))
 
+追記：Pyxel 2.3.1になりました。Pyxel version更新してpackageしなおしましたが動作せず・・・orz
 
 ## 概要
 - pymunkライブラリを使ったスマートボールシミュレーター。
