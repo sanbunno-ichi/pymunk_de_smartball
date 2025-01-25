@@ -1,5 +1,6 @@
 import asyncio
 import micropip
+import os
 
 #実行させたいファイルをここに定義
 from pymunk_de_smartball import App
@@ -27,7 +28,12 @@ async def main():
         #await micropip.install("pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl")
         #await micropip.install("https://github.com/sanbunno-ichi/pymunk_de_smartball/blob/main/pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl")
         #→CORSでエラー
-        await micropip.install("https://sanbunno-ichi.github.io/pymunk_de_smartball/pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl")
+        #await micropip.install("https://sanbunno-ichi.github.io/pymunk_de_smartball/pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl")
+
+        #カレントディレクトリの絶対パスを取得
+        path = os.getcwd()
+        #print(path)
+        await micropip.install(path + "/pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl")
         print("Pymunk installed successfully")
 
         # pymunkをインポート
