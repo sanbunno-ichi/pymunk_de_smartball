@@ -1,29 +1,4 @@
 # pymunk_de_smartball
-## 注釈
-Web版に関して：  
-1/23までは動作していましたが、1/24現在動作しなくなりました。  
-Pyxelのversion upがありましたが影響は無さそうとのこと。  
-micropipもpyodideも問題はなさそうで行き詰まり・・・
-
-エラー内容は、pymunkがロードできないエラーが出ています。  
-ファイルパスもあってるしファイルも存在するし、何が何やら・・・
-
-エラーログ  
-> Wake Lock active.  
-> pyodide.asm.js:10 Loading pyxel  
-> pyodide.asm.js:10 Loaded pyxel  
-> pyodide.asm.js:10 Loading micropip, packaging  
-> pyodide.asm.js:10 Loaded micropip, packaging  
-> pyxel.js:209 Copied './pymunk_de_smartball.pyxapp' to '/pyxel_working_directory/pymunk_de_smartball.pyxapp'  
-> pyodide.asm.js:10 Installing Pymunk...
-pyodide.asm.js:10 Error: Cannot download from a non-remote location: 'file:///pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl' (ParseResult(scheme='', netloc='', path='pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl', params='', query='', fragment=''))  
-
-そんなわけで、今のところWeb版は動きません。（20250125記）  
-ダウンロードしてローカルでアプリ版：pymunk_de_smartball_a.pyxappを起動すれば遊べます。  
-実行コマンド：pyxel play pymunk_de_smartball_a.pyxapp
-  
-ローカルで実行する場合にはpymunkをインストールする必要があります  
-pip install pymunk
   
 ## 概要
 - pymunkライブラリを使ったスマートボールシミュレーター。
@@ -49,3 +24,8 @@ Bボタン、または、XキーでPyxel Quit
 
 ## 動作確認
 - [URL](https://sanbunno-ichi.github.io/pymunk_de_smartball/)
+
+## 更新履歴
+2025.01.25 Web版動作しなかったのを改修  
+2025.01.18 台の種類追加  
+2025.01.16 公開  
