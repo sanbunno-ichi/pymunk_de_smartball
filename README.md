@@ -21,7 +21,10 @@ pyodide.asm.js:10 Error: Cannot download from a non-remote location: 'file:///py
 そんなわけで、今のところWeb版は動きません。（20250125記）  
 ダウンロードしてローカルでアプリ版：pymunk_de_smartball_a.pyxappを起動すれば遊べます。  
 実行コマンド：pyxel play pymunk_de_smartball_a.pyxapp
-
+  
+ローカルで実行する場合にはpymunkをインストールする必要があります  
+pip install pymunk
+  
 ## 概要
 - pymunkライブラリを使ったスマートボールシミュレーター。
 - 当たり判定は全てpymunkライブラリの衝突判定を使用しています。
