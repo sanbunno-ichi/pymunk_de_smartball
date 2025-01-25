@@ -18,8 +18,8 @@ micropipもpyodideも問題はなさそうで行き詰まり・・・
 > pyodide.asm.js:10 Installing Pymunk...
 pyodide.asm.js:10 Error: Cannot download from a non-remote location: 'file:///pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl' (ParseResult(scheme='', netloc='', path='pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl', params='', query='', fragment=''))  
 
-そんなわけで、今のところWeb版は動きません。（20250125記）
-ダウンロードしてローカルでアプリ版：pymunk_de_smartball_a.pyxappを起動すれば遊べます。
+そんなわけで、今のところWeb版は動きません。（20250125記）  
+ダウンロードしてローカルでアプリ版：pymunk_de_smartball_a.pyxappを起動すれば遊べます。  
 実行コマンド：pyxel play pymunk_de_smartball_a.pyxapp
 
 ## 概要
