@@ -8,14 +8,14 @@ micropipもpyodideも問題はなさそうで行き詰まり・・・
 ファイルパスもあってるしファイルも存在するし、何が何やら・・・
 
 エラーログ  
-> Wake Lock active.
-> pyodide.asm.js:10 Loading pyxel
-> pyodide.asm.js:10 Loaded pyxel
-> pyodide.asm.js:10 Loading micropip, packaging
-> pyodide.asm.js:10 Loaded micropip, packaging
-> pyxel.js:209 Copied './pymunk_de_smartball.pyxapp' to '/pyxel_working_directory/pymunk_de_smartball.pyxapp'
+> Wake Lock active.  
+> pyodide.asm.js:10 Loading pyxel  
+> pyodide.asm.js:10 Loaded pyxel  
+> pyodide.asm.js:10 Loading micropip, packaging  
+> pyodide.asm.js:10 Loaded micropip, packaging  
+> pyxel.js:209 Copied './pymunk_de_smartball.pyxapp' to '/pyxel_working_directory/pymunk_de_smartball.pyxapp'  
 > pyodide.asm.js:10 Installing Pymunk...
-pyodide.asm.js:10 Error: Cannot download from a non-remote location: 'file:///pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl' (ParseResult(scheme='', netloc='', path='pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl', params='', query='', fragment=''))
+pyodide.asm.js:10 Error: Cannot download from a non-remote location: 'file:///pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl' (ParseResult(scheme='', netloc='', path='pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl', params='', query='', fragment=''))  
 
 そんなわけで、今のところWeb版は動きません。（20250125記）
 ダウンロードしてローカルでアプリ版：pymunk_de_smartball_a.pyxappを起動すれば遊べます。
