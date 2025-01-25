@@ -26,13 +26,15 @@ async def main():
         # micropipを使ってwhlファイルからpymunkをインストール
         print("Installing Pymunk...")
         #await micropip.install("pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl")
+        #→NG
         #await micropip.install("https://github.com/sanbunno-ichi/pymunk_de_smartball/blob/main/pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl")
         #→CORSでエラー
         #await micropip.install("https://sanbunno-ichi.github.io/pymunk_de_smartball/pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl")
+        #→OK
 
         #カレントディレクトリの絶対パスを取得
         path = os.getcwd()
-        #print(path)
+        print(path)
         await micropip.install(path + "/pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl")
         print("Pymunk installed successfully")
 
