@@ -24,8 +24,10 @@ async def main():
     try:
         # micropipを使ってwhlファイルからpymunkをインストール
         print("Installing Pymunk...")
-        await micropip.install("./pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl")
+        #await micropip.install("pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl")
+        await micropip.install("https://github.com/sanbunno-ichi/pymunk_de_smartball/blob/main/pymunk-6.10.0-cp312-cp312-pyodide_2024_0_wasm32.whl")
         print("Pymunk installed successfully")
+
 
         # pymunkをインポート
         import pymunk
