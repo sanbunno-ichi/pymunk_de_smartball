@@ -1,6 +1,6 @@
 # pymunk_de_smartball
 ## 注釈
-Web版に関して：
+Web版に関して：  
 1/23までは動作していましたが、1/24現在動作しなくなりました。  
 Pyxelのversion upがありましたが影響は無さそうとのこと。  
 micropipもpyodideも問題はなさそうで行き詰まり・・・
