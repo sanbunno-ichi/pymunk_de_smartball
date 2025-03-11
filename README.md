@@ -13,19 +13,5 @@
 Aボタン、または、Zキーでショット  
 Bボタン、または、XキーでPyxel Quit  
 
-## スクリーンショット
-![SS](sm_title.png)  
-![SS](sm_game1.png)  
-![SS](sm_game2.png)  
-![SS](sm_game3.png)  
-
-## GIFアニメ
-![GIF](sm_0116.gif)
-
-## 動作確認
-- [URL](https://sanbunno-ichi.github.io/pymunk_de_smartball/)
-
-## 更新履歴
-2025.01.25 Web版動作しなかったのを改修  
-2025.01.18 台の種類追加  
-2025.01.16 公開  
+## Goto Pyxel Contents
+[Pyxel Contents](https://sanbunnoichi1962.web.fc2.com/pyxel_contents.html#pymunk_de_smartball)
